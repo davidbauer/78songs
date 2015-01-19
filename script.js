@@ -1,6 +1,9 @@
-$( document ).ready(function() {
+var playlists = [],
+	availableFiles = 2,
+	loadedFiles = [];
 	
-	var playlists = [];
+$( document ).ready(function() {
+
 	var user = document.location.hash.substr(1);
 	
 	// what to do when we have a user in the url
@@ -13,8 +16,15 @@ $( document ).ready(function() {
 	else {
 		loadPlaylists(1); // load sheet 1, could also be latest or random
 	}
+	
+	if ( $(window).scrollTop() >= ($(document).height() - 200) ) {
+		alert("reload!");
+		reloadContent();
+	}
     
 });
+
+
 
 
 // smooth scrolling animation
@@ -57,7 +67,7 @@ function loadPlaylists(file, user) {
 	}
 	
 	renderContent(playlists);
-	
+	loadedFiles.push(file); // save file we've loaded so we don't load it again
 	});
 }
 
@@ -127,6 +137,18 @@ function renderContent(items) {
 }
 
 function reloadContent() {
+	// unhide spinner
+	$('.mainspinner').show();
+	
+	if (loadedFiles.length < availableFiles) {
+		var filetoload = 1; // define method to determine next file to load 
+		loadPlaylists(filetoload);	
+	}
+	
+	else {
+		// no more playlists available, create one yourself?
+	}
+	
 	
 }
 
