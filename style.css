@@ -3,7 +3,7 @@
 
 body {color: white; font-family: 'Droid Sans', Helvetica, Arial, sans-serif;background:#780064;}
 
-#wrapper {max-width: 2000px;margin:0 auto;}
+#wrapper {max-width: 2000px;margin:0 auto;overflow: scroll;}
 header {}
 
 a.random {cursor:pointer;padding:5px 10px;position: fixed; right:10px;border: 2px solid white;z-index: 100;}

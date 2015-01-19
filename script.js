@@ -1,6 +1,7 @@
 var playlists = [],
 	availableFiles = 2,
-	loadedFiles = [];
+	loadedFiles = [],
+	reloading = false;
 	
 $( document ).ready(function() {
 
@@ -17,13 +18,16 @@ $( document ).ready(function() {
 		loadPlaylists(1); // load sheet 1, could also be latest or random
 	}
 	
-	// TODO: get this to work!
-	if ( $(window).scrollTop() >= ($(document).height() - 200) ) {
-		alert("reload!");
+});
+
+
+$(document).scroll(function() {
+	if ( reloading == false && $(window).scrollTop() >= ($(document).height() - 600)) {
+		reloading = true;
+		console.log("loading more playlists");
 		reloadContent();
 	}
-    
-});
+}); 
 
 
 // smooth scrolling animation
@@ -106,10 +110,8 @@ function renderContent(items) {
 			// populate with data
 			$img.attr("src", "img/" + items[i].spotifyId + ".png");
 			$section.addClass("bg-" + ((i%20)+1));
-			//$section.addClass("bg-" + Math.floor((Math.random()*20)+1));
-			//$section.css('background-image', "url(" + document.URL.replace(/#.*$/, "") + "img/" + items[i].spotifyId + "_bg.png)");
 			$username.html(items[i].name + " <a target='_blank' href='http://www.twitter.com/" + items[i].twitter +"'><i class='fa fa-twitter'></i></a>");
-			$right.append($playlistEmbed); // TODO only display iframe once its content is loaded completely
+			$right.append($playlistEmbed); // TODO only display iframe once its content is loaded completely	
 			$right.append("<p><a href='" + $playlistUrl + "' target='_blank'>Open playlist in Spotify</a>");
 			
 			// if twitter handle available, link to it after username, use it for tweet
@@ -130,7 +132,7 @@ function renderContent(items) {
 			
 			// remove the loading spinner when we're done here
 			if (i == items.length-1) {
-				$('.mainspinner').remove();
+				$('.mainspinner').hide();
 			}	
 	}
 }
@@ -145,10 +147,11 @@ function reloadContent() {
 	}
 	
 	else {
+		console.log("no more playlists available");
 		// TODO: show text no more playlists available, create one yourself?"
 	}
 	
-	
+	reloading = false;
 }
 
 // bring user to random playlist once she clicks the button
