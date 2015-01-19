@@ -17,14 +17,13 @@ $( document ).ready(function() {
 		loadPlaylists(1); // load sheet 1, could also be latest or random
 	}
 	
+	// TODO: get this to work!
 	if ( $(window).scrollTop() >= ($(document).height() - 200) ) {
 		alert("reload!");
 		reloadContent();
 	}
     
 });
-
-
 
 
 // smooth scrolling animation
@@ -137,16 +136,16 @@ function renderContent(items) {
 }
 
 function reloadContent() {
-	// unhide spinner
+
 	$('.mainspinner').show();
 	
 	if (loadedFiles.length < availableFiles) {
-		var filetoload = 1; // define method to determine next file to load 
+		var filetoload = 1; // TODO: define method to determine next file to load 
 		loadPlaylists(filetoload);	
 	}
 	
 	else {
-		// no more playlists available, create one yourself?
+		// TODO: show text no more playlists available, create one yourself?"
 	}
 	
 	
