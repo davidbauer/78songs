@@ -1,11 +1,7 @@
 var reloading = false,
 	loadedPlaylists = [],
-	fileNum = 2, // number of people json files (see meta.json)
-	allFiles = [],
+	allFiles = listFiles(),
 	loadedFiles = [];
-	for (i=1;i <= fileNum;i++) {
-		allFiles.push(i);
-	}
 
 	
 $( document ).ready(function() {
@@ -150,7 +146,7 @@ function reloadContent() {
 	
 	$('.mainspinner').show();
 	
-	if (loadedFiles.length < fileNum) {
+	if (loadedFiles.length < allFiles.length) {
 		
 		var unloadedFiles = _.difference(allFiles,loadedFiles);
 
@@ -183,5 +179,12 @@ $('.random').click(function(){
 	        return false;		
 		};
 }); 
+
+function listFiles() {
+	$.getJSON( "meta.json", function( data ) {
+		allFiles = _.unique(_.values(data));
+	});
+}
+
 
 
