@@ -91,6 +91,20 @@
 	"playlistId" : "4wriaS7BlpJZvco8HvisIL"		
 	},
 	{
+	"username" : "fabianchiquet",
+	"name" : "Fabian Chiquet",
+	"twitter" : "",
+	"spotifyId" : "1135133589",
+	"playlistId" : "7J3Q2b30IkqMrGrIHnmXkN"		
+	},
+	{
+	"username" : "liviomarcstoeckli",
+	"name" : "Livio Marc Stöckli",
+	"twitter" : "livio_stoeckli",
+	"spotifyId" : "119818650",
+	"playlistId" : "04ygphu6i62iQ9SgYviQXo"		
+	},
+	{
 	"username" : "adrienvarenne",
 	"name" : "Adrien Varenne",
 	"twitter" : "adrienvarenne",
@@ -105,7 +119,7 @@
 	"playlistId" : "6Ip1JHtm8w9OwAsLzsYbGv"		
 	},
 	{
-	"username" : "fabianunhold",
+	"username" : "fabianunold",
 	"name" : "Fabian Unold",
 	"twitter" : "",
 	"spotifyId" : "1135320796",
@@ -117,13 +131,6 @@
 	"twitter" : "",
 	"spotifyId" : "togomes",
 	"playlistId" : "7HfzdSxYoqxfToqiPF6bIu"		
-	},
-	{
-	"username" : "fabianchiquet",
-	"name" : "Fabian Chiquet",
-	"twitter" : "",
-	"spotifyId" : "1135133589",
-	"playlistId" : "7J3Q2b30IkqMrGrIHnmXkN"		
 	},
 	{
 	"username" : "maxalber",

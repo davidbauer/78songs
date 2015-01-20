@@ -1,7 +1,12 @@
-var playlists = [],
-	availableFiles = 2,
-	loadedFiles = [],
-	reloading = false;
+var reloading = false,
+	loadedPlaylists = [],
+	fileNum = 2, // number of people json files (see meta.json)
+	allFiles = [],
+	loadedFiles = [];
+	for (i=1;i <= fileNum;i++) {
+		allFiles.push(i);
+	}
+
 	
 $( document ).ready(function() {
 
@@ -17,14 +22,15 @@ $( document ).ready(function() {
 	else {
 		loadPlaylists(1); // load sheet 1, could also be latest or random
 	}
-	
+			
 });
 
 
-$(document).scroll(function() {
-	if ( reloading == false && $(window).scrollTop() >= ($(document).height() - 600)) {
+$( document ).scroll(function() {
+	
+	if ( reloading == false && $(window).scrollTop() >= ($(document).height() - 800)) {
 		reloading = true;
-		console.log("loading more playlists");
+		console.log("Looking for more playlists...");
 		reloadContent();
 	}
 }); 
@@ -58,6 +64,8 @@ function findPlaylist(user) {
 
 function loadPlaylists(file, user) {
 	
+	playlists = [];
+	
 	$.getJSON( "people-" + file + ".json", function( data ) {
 	if (user) {
 		userplaylist = _.where(data, {username : user});
@@ -70,6 +78,7 @@ function loadPlaylists(file, user) {
 	}
 	
 	renderContent(playlists);
+	loadedPlaylists = loadedPlaylists.concat(playlists);
 	loadedFiles.push(file); // save file we've loaded so we don't load it again
 	});
 }
@@ -79,10 +88,10 @@ function renderContent(items) {
 		for(i = 0; i < items.length; i++) {
 			
 			var $wrapper = $('#wrapper'),
-		    $section = $("<section class='block'/>"),
+		  	$section = $("<section class='block'/>"),
 		    $inside = $("<div class='inside'/>"),
 		    $offset = $("<div class='g g1 gl mobile-hide'/>"),
-		    $left = $("<div class='g g2 left'/>"),
+			$left = $("<div class='g g2 left'/>"),
 		    $right = $("<div class='g g2 centered right'/>"),
 		    $spinner = $("<div class='spinner'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>")
 		    $imgshell = $("<div class='g g2 gl shell'/>"),
@@ -108,7 +117,7 @@ function renderContent(items) {
 			//$right.append($spinner);
 			
 			// populate with data
-			$img.attr("src", "img/" + items[i].spotifyId + ".png");
+			$img.attr("src", "img/" + items[i].username + ".png");
 			$section.addClass("bg-" + ((i%20)+1));
 			$username.html(items[i].name + " <a target='_blank' href='http://www.twitter.com/" + items[i].twitter +"'><i class='fa fa-twitter'></i></a>");
 			$right.append($playlistEmbed); // TODO only display iframe once its content is loaded completely	
@@ -125,7 +134,7 @@ function renderContent(items) {
 				$twitterShare = "https://twitter.com/intent/tweet?text=Check this playlist of " + items[i].name + "’s favourite songs.&amp;url=" + $sectionUrl.replace('#','%23') + "&amp;hashtags=78songs&amp;via=davidbauer";
 			}
 			
-			$facebookShare = "https://www.facebook.com/dialog/feed?app_id=1402559546704397&amp;redirect_uri=" + $sectionUrl.replace('#','%23') + "&amp;display=page&amp;link=" + $sectionUrl.replace('#','%23') + "&amp;name=Playlist: " + items[i].name + "’s favourite 78 songs.&amp;description=Music lovers share their 78 favourite songs. Play and save as a playlist in Spotify. &amp;picture=" + document.URL + "img/" + items[i].spotifyId + ".png";
+			$facebookShare = "https://www.facebook.com/dialog/feed?app_id=1402559546704397&amp;redirect_uri=" + $sectionUrl.replace('#','%23') + "&amp;display=page&amp;link=" + $sectionUrl.replace('#','%23') + "&amp;name=Playlist: " + items[i].name + "’s favourite 78 songs.&amp;description=Music lovers share their 78 favourite songs. Play and save as a playlist in Spotify. &amp;picture=" + document.URL + "img/" + items[i].username + ".png";
 			
 			$share.append("<a target='_blank' class='sharebtn fb g g3 gl' href='" + $facebookShare + "'>Share on <i class='fa fa-facebook-square'></i></a>");
 			$share.append("<a target='_blank' class='sharebtn twi g g3' href='" + $twitterShare + "'>Share on <i class='fa fa-twitter'></i></a>");
@@ -138,17 +147,21 @@ function renderContent(items) {
 }
 
 function reloadContent() {
-
+	
 	$('.mainspinner').show();
 	
-	if (loadedFiles.length < availableFiles) {
-		var filetoload = 1; // TODO: define method to determine next file to load 
-		loadPlaylists(filetoload);	
+	if (loadedFiles.length < fileNum) {
+		
+		var unloadedFiles = _.difference(allFiles,loadedFiles);
+
+		loadPlaylists(unloadedFiles[0]); // load first file that is not on the page yet	
 	}
 	
 	else {
+		$('.mainspinner').hide();
+		$('#wrapper').append("<div class='inside'><div class='g g6 gl centered'>More playlists are coming. <a class='typeform-share link' href='https://davidbauer.typeform.com/to/OITa5l' data-mode='1' target='_blank'>Why not submit your own?</a></div></div>");
 		console.log("no more playlists available");
-		// TODO: show text no more playlists available, create one yourself?"
+		return;
 	}
 	
 	reloading = false;
@@ -156,8 +169,8 @@ function reloadContent() {
 
 // bring user to random playlist once she clicks the button
 $('.random').click(function(){
-	var i = Math.floor(Math.random()*playlists.length);
-	var randomPlaylist = playlists[i];
+	var i = Math.floor(Math.random()*loadedPlaylists.length);
+	var randomPlaylist = loadedPlaylists[i];
 	var randomId = "#" + randomPlaylist.username;
 	
 	var target = $(randomId);
