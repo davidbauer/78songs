@@ -110,7 +110,7 @@ function renderContent(items) {
 			$imgshell.append($img);
 			$left.append($username);
 			$left.append($share);
-			//$right.append($spinner);
+			$right.append($spinner);
 			
 			// populate with data
 			$img.attr("src", "img/" + items[i].username + ".png");
@@ -135,6 +135,12 @@ function renderContent(items) {
 			$share.append("<a target='_blank' class='sharebtn fb g g3 gl' href='" + $facebookShare + "'>Share on <i class='fa fa-facebook-square'></i></a>");
 			$share.append("<a target='_blank' class='sharebtn twi g g3' href='" + $twitterShare + "'>Share on <i class='fa fa-twitter'></i></a>");
 			
+			// show finished iframe
+			$('iframe').load(function(){
+				$(this).parent().find('.spinner').remove();
+				$(this).show();
+			});
+
 			// remove the loading spinner when we're done here
 			if (i == items.length-1) {
 				$('.mainspinner').hide();

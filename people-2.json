@@ -1,3 +1,37 @@
 [
-	
+	{
+	"username" : "carstentitlbach",
+	"name" : "Carsten Titlbach",
+	"twitter" : "locationsite",
+	"spotifyId" : "1122240125",
+	"playlistId" : "6mYSvLubUXndFVJLUpc50q"		
+	},
+	{
+	"username" : "bartfehr",
+	"name" : "Bart Fehr",
+	"twitter" : "bartaberfehr",
+	"spotifyId" : "116887421",
+	"playlistId" : "34kReOXzY21UlN6rwcNawF"		
+	},
+	{
+	"username" : "patriksmidoc",
+	"name" : "Patrik Smidoc",
+	"twitter" : "patriksmidoc",
+	"spotifyId" : "116972160",
+	"playlistId" : "0CwCfZg56ZiY0zi5NrT602"		
+	},
+	{
+	"username" : "adrienvarenne",
+	"name" : "Adrien Varenne",
+	"twitter" : "adrienvarenne",
+	"spotifyId" : "118544611",
+	"playlistId" : "3YdnWyHftLgeWQVtNuDi2y"		
+	},
+	{
+	"username" : "manolomarquina",
+	"name" : "Manolo Marquina",
+	"twitter" : "ManoloMarquina",
+	"spotifyId" : "116702785",
+	"playlistId" : "6Ip1JHtm8w9OwAsLzsYbGv"		
+	}
 ]

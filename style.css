@@ -21,6 +21,8 @@ transition: all 0.3s ease-in-out; }
 
 p, ul, ol {line-height: 1.4em;}
 
+iframe {display:none;}
+
 /* Grid
 -------------------------------------------------------------------------------*/
 .block {width:100%;clear: both;margin: 0px;min-height: 450px;padding: 10px 0 20px;z-index: 1;position: relative;background-size:100%;background-repeat: no-repeat;}
@@ -105,9 +107,17 @@ a .fa {color:white;}
 
 /* Spinner
 -------------------------------------------------------------------------------*/
-.spinner, .mainspinner {
+.mainspinner {
   width: 100px;
   height: 100px;
+
+  position: relative;
+  margin: 100px auto;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
 
   position: relative;
   margin: 100px auto;
