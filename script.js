@@ -111,7 +111,7 @@ function renderContent(items) {
 		    $username = $("<div class='username g g4'/>"),
 		    $share = $("<div class='share g g6 shell'/>"),
 		    $playlistUrl = "http://open.spotify.com/user/" + items[i].spotifyId + "/playlist/" + items[i].playlistId,
-		    $playlistEmbed = "<iframe src='https://embed.spotify.com/?uri=spotify:user:" + items[i].spotifyId + ":playlist:" + items[i].playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>",
+		    $playlistEmbed = "<iframe class='spotify' src='https://embed.spotify.com/?uri=spotify:user:" + items[i].spotifyId + ":playlist:" + items[i].playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>",
 		    $user = items[i].username,
 		    $sectionUrl = document.URL.replace(/#.*$/, "") + "#" + $user;
 			

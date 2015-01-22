@@ -21,7 +21,7 @@ transition: all 0.3s ease-in-out; }
 
 p, ul, ol {line-height: 1.4em;}
 
-iframe {display:none;}
+iframe.spotify {display:none;}
 
 /* Grid
 -------------------------------------------------------------------------------*/
