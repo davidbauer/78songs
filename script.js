@@ -40,7 +40,7 @@ $( document ).scroll(function() {
 
 	// load iframe for delta
 	if (toLoad.length > 0) {
-		loadIframe(toLoad);
+		loadIframe(toLoad[0]);
 		// save sections with newly loaded iframes to array of sections with iframe loaded
 		loadedIframes = loadedIframes.concat(toLoad);
 	}
@@ -135,10 +135,19 @@ function renderContent(items) {
 			// load first three iframes
 			
 			if (i < 3) {
+				loadIframe($user, items[i]);
+				loadedIframes.push($user);
+				console.log(loadedIframes);
+				console.log("loaded" + i);
+			}
+			
+			/*
+if (i < 3) {
 				$right.append($playlistEmbed);	
 				$right.append("<p><a href='" + $playlistUrl + "' target='_blank'>Open playlist in Spotify</a>");
 				loadedIframes.push(items[i].username);
 			}
+*/
 			
 			// if twitter handle available, link to it after username, use it for tweet
 			if (items[i].twitter) {
@@ -157,10 +166,12 @@ function renderContent(items) {
 			$share.append("<a target='_blank' class='sharebtn twi g g3' href='" + $twitterShare + "'>Share on <i class='fa fa-twitter'></i></a>");
 			
 			// show finished iframe
-			$('iframe').load(function(){
+			/*
+$('iframe').load(function(){
 				$(this).parent().find('.spinner').remove();
 				$(this).show();
 			});
+*/
 
 			// remove the loading spinner when we're done here
 			if (i == items.length-1) {
@@ -213,8 +224,28 @@ function listFiles() {
 	});
 }
 
-function loadIframe(usernames) {
-	console.log(usernames);
+function loadIframe(username, knownplaylist) {
+	
+	// find
+	if (knownplaylist) {
+		playlist = knownplaylist;
+	}
+	else {
+		playlist = _.findWhere(playlists, {username: username});
+	}
+	
+	playlisturl = "http://open.spotify.com/user/" + playlist.spotifyId + "/playlist/" + playlist.playlistId;
+	iframe = "<iframe src='https://embed.spotify.com/?uri=spotify:user:" + playlist.spotifyId + ":playlist:" + playlist.playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>";
+	
+	// append
+	$('#' + username + ' .right').append(iframe);
+	$('#' + username + ' .right').append("<p><a href='" + playlisturl + "' target='_blank'>Open playlist in Spotify</a>");
+	
+	// show finished iframe
+	$('iframe').load(function(){
+		$(this).parent().find('.spinner').remove();
+		$(this).show();
+	});
 }
 
 
