@@ -133,21 +133,10 @@ function renderContent(items) {
 			$section.addClass("bg-" + ((i%20)+1));
 			$username.html(items[i].name + " <a target='_blank' href='http://www.twitter.com/" + items[i].twitter +"'><i class='fa fa-twitter'></i></a>");
 			// load first three iframes
-			
 			if (i < 3) {
 				loadIframe($user, items[i]);
 				loadedIframes.push($user);
-				console.log(loadedIframes);
-				console.log("loaded" + i);
 			}
-			
-			/*
-if (i < 3) {
-				$right.append($playlistEmbed);	
-				$right.append("<p><a href='" + $playlistUrl + "' target='_blank'>Open playlist in Spotify</a>");
-				loadedIframes.push(items[i].username);
-			}
-*/
 			
 			// if twitter handle available, link to it after username, use it for tweet
 			if (items[i].twitter) {
@@ -165,15 +154,7 @@ if (i < 3) {
 			$share.append("<a target='_blank' class='sharebtn fb g g3 gl' href='" + $facebookShare + "'>Share on <i class='fa fa-facebook-square'></i></a>");
 			$share.append("<a target='_blank' class='sharebtn twi g g3' href='" + $twitterShare + "'>Share on <i class='fa fa-twitter'></i></a>");
 			
-			// show finished iframe
-			/*
-$('iframe').load(function(){
-				$(this).parent().find('.spinner').remove();
-				$(this).show();
-			});
-*/
-
-			// remove the loading spinner when we're done here
+			// remove the main spinner when we're done here
 			if (i == items.length-1) {
 				$('.mainspinner').hide();
 			}	
