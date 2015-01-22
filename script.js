@@ -2,11 +2,14 @@ var reloading = false,
 	loadedPlaylists = [],
 	allFiles = listFiles(),
 	loadedFiles = [],
-	loadedIframes = [];
+	loadedIframes = [],
+	totalNum;
 
 	
 $( document ).ready(function() {
-
+	
+	countPlaylists();
+	
 	var user = document.location.hash.substr(1);
 	
 	// what to do when we have a user in the url
@@ -229,5 +232,10 @@ function loadIframe(username, knownplaylist) {
 	});
 }
 
-
+function countPlaylists() {
+	$.getJSON( "meta.json", function( data ) {
+	totalNum = _.size(data);
+	console.log("WE GOT " + totalNum + " PLAYLISTS AND A BITCH AIN'T NONE.");
+	});
+}
 
