@@ -1,7 +1,8 @@
 var reloading = false,
 	loadedPlaylists = [],
 	allFiles = listFiles(),
-	loadedFiles = [];
+	loadedFiles = [],
+	loadedIframes = [];
 
 	
 $( document ).ready(function() {
@@ -21,7 +22,6 @@ $( document ).ready(function() {
 			
 });
 
-
 $( document ).scroll(function() {
 	
 	if ( reloading == false && $(window).scrollTop() >= ($(document).height() - 800)) {
@@ -29,6 +29,22 @@ $( document ).scroll(function() {
 		console.log("Looking for more playlists...");
 		reloadContent();
 	}
+	 
+	// check section(s) about to come in viewport against those with iframe already loaded
+	var visibleIds = [];
+	var inviewport = $('section:in-viewport(1000)'); // tolerance of 1000 = reacts 1000px before it comes into viewport
+	$.each(inviewport, function(){
+		visibleIds.push(this.attributes.id.nodeValue);
+	});
+	var toLoad = _.difference(visibleIds, loadedIframes); 
+
+	// load iframe for delta
+	if (toLoad.length > 0) {
+		loadIframe(toLoad);
+		// save sections with newly loaded iframes to array of sections with iframe loaded
+		loadedIframes = loadedIframes.concat(toLoad);
+	}
+	
 }); 
 
 
@@ -116,8 +132,13 @@ function renderContent(items) {
 			$img.attr("src", "img/" + items[i].username + ".png");
 			$section.addClass("bg-" + ((i%20)+1));
 			$username.html(items[i].name + " <a target='_blank' href='http://www.twitter.com/" + items[i].twitter +"'><i class='fa fa-twitter'></i></a>");
-			$right.append($playlistEmbed); // TODO only display iframe once its content is loaded completely	
-			$right.append("<p><a href='" + $playlistUrl + "' target='_blank'>Open playlist in Spotify</a>");
+			// load first three iframes
+			
+			if (i < 3) {
+				$right.append($playlistEmbed);	
+				$right.append("<p><a href='" + $playlistUrl + "' target='_blank'>Open playlist in Spotify</a>");
+				loadedIframes.push(items[i].username);
+			}
 			
 			// if twitter handle available, link to it after username, use it for tweet
 			if (items[i].twitter) {
@@ -190,6 +211,10 @@ function listFiles() {
 	$.getJSON( "meta.json", function( data ) {
 		allFiles = _.unique(_.values(data));
 	});
+}
+
+function loadIframe(usernames) {
+	console.log(usernames);
 }
 
 
