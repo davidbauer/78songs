@@ -113,8 +113,6 @@ function renderContent(items) {
 		    $img = $("<img class='avatar'/>"),
 		    $username = $("<div class='username g g4'/>"),
 		    $share = $("<div class='share g g6 shell'/>"),
-		    $playlistUrl = "http://open.spotify.com/user/" + items[i].spotifyId + "/playlist/" + items[i].playlistId,
-		    $playlistEmbed = "<iframe class='spotify' src='https://embed.spotify.com/?uri=spotify:user:" + items[i].spotifyId + ":playlist:" + items[i].playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>",
 		    $user = items[i].username,
 		    $sectionUrl = document.URL.replace(/#.*$/, "") + "#" + $user;
 			
@@ -219,7 +217,7 @@ function loadIframe(username, knownplaylist) {
 	}
 	
 	playlisturl = "http://open.spotify.com/user/" + playlist.spotifyId + "/playlist/" + playlist.playlistId;
-	iframe = "<iframe src='https://embed.spotify.com/?uri=spotify:user:" + playlist.spotifyId + ":playlist:" + playlist.playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>";
+	iframe = "<iframe class='spotify' src='https://embed.spotify.com/?uri=spotify:user:" + playlist.spotifyId + ":playlist:" + playlist.playlistId + "' width='100%' height='380' frameborder='0' allowtransparency='true'></iframe>";
 	
 	// append
 	$('#' + username + ' .right').append(iframe);
