@@ -224,7 +224,7 @@ function loadIframe(username, knownplaylist) {
 	$('#' + username + ' .right').append("<p><a href='" + playlisturl + "' target='_blank'>Open playlist in Spotify</a>");
 	
 	// show finished iframe
-	$('iframe').load(function(){
+	$('#' + username + ' .right').find('iframe').load(function(){
 		$(this).parent().find('.spinner').remove();
 		$(this).show();
 	});
